@@ -1,4 +1,4 @@
-def solveBurgers(Re):
+def FOMsolver(Re):
 
     from dolfin import project, IntervalMesh, Constant, Expression, FunctionSpace, Function, TestFunction, grad, inner, DOLFIN_EPS, DirichletBC, dx, solve, dot, exp
 
