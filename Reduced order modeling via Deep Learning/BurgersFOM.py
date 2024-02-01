@@ -78,3 +78,13 @@ def FOMsolver(Re):
         sol = np.flip( ( u.vector().get_local() ) )
         S[index+1] = sol[ : ]
     return X, np.array([t0]+list(times)), S
+
+
+def loadData():
+    import gdown
+    import numpy as np
+    gdown.download(id = "1sKExVcPnohi0tJZOcokx9UDAxw5FsU-H", output = "FOMdata.npz", quiet=False)
+    data = np.load("FOMdata.npz")
+    from IPython.display import clear_output
+    clear_output()
+    return data['mu'], data['u']
