@@ -88,3 +88,20 @@ def loadData():
     from IPython.display import clear_output
     clear_output()
     return data['mu'], data['u']
+
+
+def animate(x, t, u, speed = 4):
+    import dlroms.gifs as gifs
+    import numpy as np
+    rnd = np.random.randint(50000)
+    umin, umax = u.min(), u.max()
+    def drawframe(j):
+        plt.figure()
+        plt.plot(x, u[j*speed])
+        plt.title("t = %.2f" % t[j*speed])
+        plt.axis([-0.05, 1.05, umin*1.05 - umax*0.05, -umin*0.05 + umax*1.05])
+    gifs.save(drawframe, len(u)//speed, "temp%d-gif" % rnd)
+    from IPython.display import Image, display
+    display(Image("temp%d-gif.gif" % rnd))
+    from os import remove
+    remove("temp%d-gif.gif" % rnd)
