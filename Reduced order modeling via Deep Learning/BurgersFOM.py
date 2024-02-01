@@ -92,11 +92,12 @@ def loadData():
 
 def animate(x, t, u, speed = 4):
     import dlroms.gifs as gifs
+    import matplotlib.pyplot as plt
     import numpy as np
     rnd = np.random.randint(50000)
     umin, umax = u.min(), u.max()
     def drawframe(j):
-        plt.figure()
+        plt.figure(figsize = (4,3))
         plt.plot(x, u[j*speed])
         plt.title("t = %.2f" % t[j*speed])
         plt.axis([-0.05, 1.05, umin*1.05 - umax*0.05, -umin*0.05 + umax*1.05])
