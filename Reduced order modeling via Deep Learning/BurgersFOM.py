@@ -1,43 +1,46 @@
+from dolfin import project, IntervalMesh, Constant, Expression, FunctionSpace, Function, TestFunction, grad, inner, DOLFIN_EPS, DirichletBC, dx, solve, dot, exp
+
+import time
+
+import numpy as np
+
+from scipy.linalg import svd
+from numpy import linalg as LA
+import math
+import scipy.io as sio
+
+# Number of elements
+nel = 255
+
+# Boundary points
+xmin, xmax = 0, 1
+
+# Spatial grid
+points = np.arange(xmin, xmax + 1/nel, 1/nel)
+
+# Polynomial order of trial/test functions
+p = 1
+
+# Create mesh and function space
+X     = np.arange( xmin, xmax + (xmax - xmin) / float(nel), (xmax - xmin) / float(nel) )
+mesh  = IntervalMesh( nel, xmin, xmax )
+
+# Define function space for this mesh using Continuous Galerkin
+# (Lagrange) functions of order p on each element
+V = FunctionSpace( mesh, "CG", p )
+FOMspace = V
+
+# Time discretization
+n             = 200
+T             = 2
+timestep      = T / float(n)
+t0            = 0
+times         = np.linspace(t0 + timestep, T, num = int( ( T - t0 ) / float(timestep)))
+
 def FOMsolver(Re):
 
-    from dolfin import project, IntervalMesh, Constant, Expression, FunctionSpace, Function, TestFunction, grad, inner, DOLFIN_EPS, DirichletBC, dx, solve, dot, exp
-
-    import time
-
-    import numpy as np
-
-    from scipy.linalg import svd
-    from numpy import linalg as LA
-    import math
-    import scipy.io as sio
-
-    # Number of elements
-    nel = 255
-
-    # Boundary points
-    xmin, xmax = 0, 1
-
-    # Spatial grid
-    points = np.arange(xmin, xmax + 1/nel, 1/nel)
-
-    # Polynomial order of trial/test functions
-    p = 1
-
-    # Create mesh and function space
-    X     = np.arange( xmin, xmax + (xmax - xmin) / float(nel), (xmax - xmin) / float(nel) )
-    mesh  = IntervalMesh( nel, xmin, xmax )
-
-    # Define function space for this mesh using Continuous Galerkin
-    # (Lagrange) functions of order p on each element
-    V = FunctionSpace( mesh, "CG", p )
-
     # Initialization and definition of parameters and coefficients
-    n             = 200
-    T             = 2
-    timestep      = T / float(n)
-    t0            = 0
-    times         = np.linspace(t0 + timestep, T, num = int( ( T - t0 ) / float(timestep)))
-
+    
     S        = np.zeros( (times.shape[0]+1, nel + 1 ) )
     A0       = exp( Re / 8 )
     Re_inv   = Constant( 1 ) / Constant( Re )
