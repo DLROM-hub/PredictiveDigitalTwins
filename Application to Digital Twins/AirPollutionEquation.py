@@ -34,7 +34,6 @@ def FOMsolver(d1, d2, d3, d4, theta):
 
   F = inner(mu * grad(u), grad(v)) * dx + inner(B, grad(u)) * v * dx - (w1 * v * I1 * dx + w2 * v * I2 * dx + w3 * v * I3 * dx + w4 * v * I4 * dx)
   solve(F == 0, u, bc_d)
-  clc()
   from fenics import project
   u = project(u, FOMspace)
   u = u.vector()[:]
