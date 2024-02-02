@@ -51,7 +51,7 @@ def loadData():
 
 xtarget, ytarget = 3.0, 0.75
 rtarget = 0.95
-angles = np.linspace(0, 2*pi, 1000)
+angles = np.linspace(0, 2*np.pi, 1000)
 def plotTarget():
   plt.plot(xtarget + rtarget*np.cos(angles), ytarget + rtarget*np.sin(angles), '--r')
 
