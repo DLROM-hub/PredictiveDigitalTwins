@@ -37,7 +37,7 @@ def FOMsolver(d1, d2, d3, d4, theta):
   solve(F == 0, u, bc_d)
   clc()
   u = u.vector()[:]
-  return mesh, u*(u>0)
+  return u*(u>0)
 
 def loadData():
     import gdown
