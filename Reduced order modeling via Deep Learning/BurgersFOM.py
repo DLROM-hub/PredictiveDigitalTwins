@@ -87,7 +87,7 @@ def loadData():
     data = np.load("FOMdata.npz")
     from IPython.display import clear_output
     clear_output()
-    return data['mu'], data['u']
+    return data['mu'][:50], data['u'][:50]
 
 
 def animate(x, t, u, speed = 4):
