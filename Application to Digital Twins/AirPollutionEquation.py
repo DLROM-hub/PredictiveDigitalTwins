@@ -42,7 +42,7 @@ def FOMsolver(d1, d2, d3, d4, theta):
 def loadData():
     import gdown
     import numpy as np
-    gdown.download(id = "1sKExVcPnohi0tJZOcokx9UDAxw5FsU-H", output = "FOMdata.npz", quiet=False)
+    gdown.download(id = "1C5om9_ADAZhMDmz0R7eMfO-njbzlPEID", output = "FOMdata.npz", quiet=False)
     data = np.load("FOMdata.npz")
     from IPython.display import clear_output
     clear_output()
