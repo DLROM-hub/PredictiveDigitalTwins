@@ -62,3 +62,7 @@ def PollutionLevel(v):
 
 def PollutionLevels(v):
   return v[:, itarget].mean(axis = -1)
+
+def randomSimplex(d):
+  x = [0] + list(np.sort(np.random.rand(d-1))) + [1]
+  return np.diff(x)
