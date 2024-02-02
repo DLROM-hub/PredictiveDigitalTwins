@@ -48,3 +48,17 @@ def loadData():
     from IPython.display import clear_output
     clear_output()
     return data['mu'], data['u']
+
+xtarget, ytarget = 3.0, 0.75
+rtarget = 0.95
+angles = np.linspace(0, 2*pi, 1000)
+def plotTarget():
+  plt.plot(xtarget + rtarget*np.cos(angles), ytarget + rtarget*np.sin(angles), '--r')
+
+import dlroms.fespaces as fe
+itarget = np.linalg.norm(fe.coordinates(FOMspace)-[xtarget, ytarget], axis = 1)<rtarget
+def PollutionLevel(v):
+  return v[itarget].mean(axis = -1)
+
+def PollutionLevels(v):
+  return v[:, itarget].mean(axis = -1)
