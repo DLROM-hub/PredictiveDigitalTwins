@@ -1,12 +1,14 @@
+from IPython.display import clear_output as clc
+from fenics import RectangleMesh, Point, FunctionSpace, TestFunction, Function, Expression, Constant, DirichletBC, exp, interpolate, assemble, dx, inner, grad, solve
+import matplotlib.pyplot as plt
+import numpy as np
+
+mesh = RectangleMesh(Point(-5,-4), Point(5, 4), 200, 200, diagonal = "crossed")
+
+V = FunctionSpace(mesh, 'CG', 1)
+FOMspace = V
+
 def FOMsolver(d1, d2, d3, d4, theta):
-  from IPython.display import clear_output as clc
-  from fenics import RectangleMesh, Point, FunctionSpace, TestFunction, Function, Expression, Constant, DirichletBC, exp, interpolate, assemble, dx, inner, grad, solve
-  import matplotlib.pyplot as plt
-  import numpy as np
-
-  mesh = RectangleMesh(Point(-5,-4), Point(5, 4), 200, 200, diagonal = "crossed")
-
-  V = FunctionSpace(mesh, 'CG', 1)
   v = TestFunction(V)
   u = Function(V)
   w1, w2, w3, w4 = Function(V), Function(V), Function(V), Function(V)
@@ -36,3 +38,12 @@ def FOMsolver(d1, d2, d3, d4, theta):
   clc()
   u = u.vector()[:]
   return mesh, u*(u>0)
+
+def loadData():
+    import gdown
+    import numpy as np
+    gdown.download(id = "1sKExVcPnohi0tJZOcokx9UDAxw5FsU-H", output = "FOMdata.npz", quiet=False)
+    data = np.load("FOMdata.npz")
+    from IPython.display import clear_output
+    clear_output()
+    return data['mu'], data['u']
