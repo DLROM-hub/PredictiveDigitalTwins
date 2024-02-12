@@ -30,7 +30,7 @@ def downloadROM(mutrain, utrain):
 
   return ROM
 
-"""Implementation of the NN model + training
+""" Implementation of the NN model + training
 
 from dlroms import*
 
@@ -65,6 +65,5 @@ output = (coeffs - c_mean)/c_std
 
 phi.train(input, output, ntrain = ntrain, epochs = 1000, loss = mse(norm))
 phi.freeze()
-
 """
   
